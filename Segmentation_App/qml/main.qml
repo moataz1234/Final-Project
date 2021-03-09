@@ -169,7 +169,7 @@ Window {
                     Label {
                         id: label
                         color: "#e8e8e8"
-                        text: qsTr("My Title Application")
+                        text: qsTr("Segmentation Application")
                         anchors.left: iconApp.right
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -256,21 +256,33 @@ Window {
                             id:btnHome
                             width: 70
                             text: qsTr("Home")
-                            isActiveMenu: false
+                            isActiveMenu: true
+                            onClicked: {
+                                btnHome.isActiveMenu = true
+                                btnSegmentation.isActiveMenu = false
+                                stackView.push(Qt.resolvedUrl("pages/homePage.qml"))
+                            }
 
 
                         }
 
                         LeftMenuBtn {
-                            id: btnHome1
+                            id: btnSegmentation
                             width: 70
                             text: qsTr("Segmentation")
+                            btnIconSource: "../images/svg_images/segmentation_icon.svg"
+                            onClicked: {
+                                btnHome.isActiveMenu = false
+                                btnSegmentation.isActiveMenu = true
+                                stackView.push(Qt.resolvedUrl("pages/segmentationPage.qml"))
+                            }
                         }
 
                         LeftMenuBtn {
-                            id: btnHome2
+                            id: btnTrain
                             width: 70
                             text: qsTr("Train")
+                            btnIconSource: "../images/svg_images/train1_icon.svg"
                         }
                     }
                 }
@@ -282,10 +294,17 @@ Window {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
+                    clip: true
                     anchors.rightMargin: 0
                     anchors.topMargin: 0
                     anchors.bottomMargin: 25
                     anchors.leftMargin: 0
+
+                    StackView {
+                        id: stackView
+                        anchors.fill: parent
+                        initialItem: Qt.resolvedUrl("pages/homePage.qml")
+                    }
                 }
 
                 Rectangle {
@@ -305,7 +324,7 @@ Window {
                         anchors.fill: parent
                         anchors.rightMargin: 30
                         anchors.leftMargin: 10
-                        font.pointSize: 9
+                        font.pointSize: 7
                     }
                     MouseArea {
                                            id: resizeWindow
@@ -341,6 +360,7 @@ Window {
                                                antialiasing: false
                                            }
 
+                    }
                 }
             }
         }
@@ -407,7 +427,6 @@ Window {
                onActiveChanged: if (active) { mainWindow.startSystemResize(Qt.BottomEdge) }
            }
        }
-   }
 }
 
 /*##^##
