@@ -1,41 +1,45 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+
 
 Button {
-    id: button
+    id: customBtn
 
     // Custom Properties
-    property color colorDefault: "#4891d9"
-    property color colorMouseOver: "#55AAFF"
-    property color colorPressed: "#3F7EBD"
+       property color colorDefault: "#4891d9"
+       property color colorMouseOver: "#55AAFF"
+       property color colorPressed: "#3F7EBD"
 
-    QtObject{
-        id: internal
+       QtObject{
+           id: internal
 
-        property var dynamicColor: if(button.down){
-                                       button.down ? colorPressed : colorDefault
-                                   }else{
-                                       button.hovered ? colorMouseOver : colorDefault
-                                   }
-    }
+           property var dynamicColor: if(customBtn.down){
+                                          customBtn.down ? colorPressed : colorDefault
+                                      }else{
+                                          customBtn.hovered ? colorMouseOver : colorDefault
+                                      }
+       }
 
-    text: qsTr("Button")
-    contentItem: Item{
-        width: 40
-        height: 40
-        Text {
-            id: name
-            text: button.text
-            font: button.font
-            color: "#ffffff"
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-    }
+
+    text: qsTr("Custom Btn")
+    implicitHeight: 40
+    implicitWidth: 200
 
     background: Rectangle{
         color: internal.dynamicColor
         radius: 10
     }
+
+    contentItem: Item{
+        id:item1
+        Text {
+            id: textBtn
+            text: customBtn.text
+            font: customBtn.font
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "#ffffff"
+        }
+    }
+
 }
